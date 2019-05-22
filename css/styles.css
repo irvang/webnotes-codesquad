@@ -25,6 +25,10 @@ header h1 {
   font-weight: 300;
 }
 
+button.btn-danger {
+    float: right;
+}
+
 form {
   margin-top:50px;
   text-align: right;
