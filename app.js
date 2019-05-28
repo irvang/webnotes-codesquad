@@ -34,7 +34,7 @@ app.get('/', myCallbackBlue);
 app.post('/notes', (req, res) => {
   notes.push(req.body.note);
   console.log(req.body.note);
-  res.send(notes);
+  res.render('./partials/notes-section', {notes, dates});
 });
 
 app.delete('/notes/:id', (req, res) => {
@@ -47,7 +47,7 @@ app.delete('/notes/:id', (req, res) => {
     index: req.params.id
   };
 
-  res.send(resObject);
+  res.render('./partials/notes-section', {notes, dates});
 });
 
 // res.redirect('/');

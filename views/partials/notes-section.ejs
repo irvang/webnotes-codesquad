@@ -1,0 +1,14 @@
+<% for(let i = 0; i < notes.length; i++) { %>
+<div class="card">
+  <div class="card-header">
+    Note <%= i + 1 %>
+
+    <button class="btn btn-danger">Delete</button>
+  </div>
+  <div class="card-body">
+    <%= notes[i] %>
+    <br>
+    <%= dates[i] %>
+  </div>
+</div>
+<% } %>

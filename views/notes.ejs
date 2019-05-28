@@ -19,21 +19,10 @@
     <input type="submit" value="Save">
   </form>
 
-  <% for(let i = 0; i < notes.length; i++) { %>
-  <div class="card">
-    <div class="card-header">
-      Note <%= i + 1 %>
 
-      <button class="btn btn-danger">Delete</button>
-    </div>
-    <div class="card-body">
-      <%= notes[i] %>
-      <br>
-      <%= dates[i] %>
-    </div>
-  </div>
-  <% } %>
-
+  <section id="note-cards">
+    <%- include('./partials/notes-section', {notes, dates}) %>
+  </section>
 
 
 
