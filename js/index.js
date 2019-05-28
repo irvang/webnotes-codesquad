@@ -1,5 +1,3 @@
-console.log('sup')
-
 
 let buttons = document.getElementsByClassName('btn-danger');
 
@@ -36,25 +34,25 @@ for (let i = 0; i < buttons.length; i++) {
       .catch((err) => console.error(err));//if there are any errors, they would be caught on .catch
 
   });
-
 }
 
+let noteForm = document.querySelector('form[id=new-note');
+console.log(noteForm);
 
-let object = {
-  index1: 'abc'
-}
+noteForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  let input = document.querySelector('input[name=note]');
 
-let { index1 } = object;
+  console.log(input.value);
 
-object.index1 = 2;
-console.log(index1)
-console.log(object)
+  let response = await fetch('/notes', {
+    method: 'POST',
+    body: JSON.stringify({ note: input.value }),
+    headers: {
+      "content-type": "application/json"
+    }
+  });
 
-
-/**
- * Create route
- * make it delete item from array
- * to delete from array, it should select an index and remove item from array
- *
- *
- */
+  let jsonRes = await response.json();
+  console.log(jsonRes)
+});
