@@ -2,13 +2,15 @@
   background-color: aqua;
   margin-top: 10px;
 } */
-
+input[type="submit"] {
+  /* color: red; */
+}
 body {
   margin: 20px;
 }
 
 .card {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 header {

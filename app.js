@@ -10,7 +10,10 @@ const notes = [
   'http requests have a url, method, header, and body'
 ];
 
-const dates = ['5/18/19', '3-4-18'];
+let now = new Date();
+now = `${now.getDate()} ${now.getMonth()} ${now.getFullYear()}`;
+
+const dates = ['5/18/19', '3-4-18', now];
 
 app.set('view engine', 'ejs');
 app.use('/css', express.static('css'));
@@ -20,10 +23,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // console.log(app.get('view engine'))
 // console.log(app.get('views'))
 
-
-app.get('/', (req, res) => {
+let myCallbackBlue = function (req, res) {
   res.render('notes', { notes: notes, dates });
-});
+}
+
+app.get('/', myCallbackBlue);
+
 
 app.post('/notes', (req, res) => {
   notes.push(req.body.note);
@@ -31,16 +36,19 @@ app.post('/notes', (req, res) => {
 });
 
 app.delete('/notes/:id', (req, res) => {
+  console.log(req.params);
+  notes.splice(req.params.id, 1);
+  console.log(notes);
 
-    console.log('delete hit', req.params.id);
-    notes.splice(req.params.id, 1); 
-    console.log(notes);
-    res.send({msg:'deleted something', index: req.params.id});
-    // req.method = 'GET';
+  let resObject = {
+    msg: 'deleted something',
+    index: req.params.id
+  };
 
-    // res.redirect('/');
+  res.send(resObject);
 });
 
+// res.redirect('/');
 
 
 
