@@ -1,10 +1,25 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
-// console.log(process)
+const connectionUrl = 'mongodb+srv://irv123:irv123@cluster0-i5byx.mongodb.net/test?retryWrites=true&w=majority'
+
+mongoose.connect(connectionUrl, { useNewUrlParser: true })
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
+
+
+// Schema 
+const noteSchema = new mongoose.Schema({
+  note: String
+});
+
+// Model
+const Note = mongoose.model('Note', noteSchema);
+
 const notes = [
   'http is a protocoler',
   'http requests have a url, method, header, and body'
@@ -33,21 +48,33 @@ app.get('/', myCallbackBlue);
 
 app.post('/notes', (req, res) => {
   notes.push(req.body.note);
-  console.log(req.body.note);
-  res.render('./partials/notes-section', {notes, dates});
+
+  const newNote = new Note({
+    note: req.body.note
+  });
+
+  newNote.save(function (err, myObject) {
+    if (err) return console.error(err);
+    console.log(myObject)
+    // Note.find()
+
+  });
+
+  console.log(req.body.note); 
+  res.render('./partials/notes-section', { notes, dates });
 });
 
 app.delete('/notes/:id', (req, res) => {
   console.log(req.params);
   notes.splice(req.params.id, 1);
-  console.log(notes);
+  // console.log(notes);
 
-  let resObject = {
+  let resObject = { 
     msg: 'deleted something',
     index: req.params.id
   };
 
-  res.render('./partials/notes-section', {notes, dates});
+  res.render('./partials/notes-section', { notes, dates });
 });
 
 // res.redirect('/');

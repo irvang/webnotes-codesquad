@@ -36,16 +36,16 @@ notesSection.addEventListener('click', (evt) => {
 
 
 
-    //same as let index = evt.target.dataset.index (search on web 
+    //same as let id = evt.target.dataset.id (search on web 
     // for Destructuring Assignment in JavaScript)
     //we extract the index using the dataset property we stored earlier on 
-    // our button object
-    let { index } = evt.target.dataset;
+    // our button object 
+    let { id } = evt.target.dataset;
 
     // sends request to match route "/notes/:id" , where :id is a parameter
     // returns a promise that will trigger the .then method when done
     // the promise returned by fetch is stored in promise1
-    let promise1 = fetch('/notes/' + index, {
+    let promise1 = fetch('/notes/' + id, {
       method: 'DELETE'
     });
 
